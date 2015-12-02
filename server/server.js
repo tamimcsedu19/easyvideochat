@@ -201,6 +201,9 @@ io.sockets.on('connection', function (socket)
     socket.on('sendSdp',function(message){
 
     	calleeSocket = getSocket(message.name);
+
+    	console.log('sending sdp to '+message.name);
+
     	calleeSocket.emit('gotSdp',message);
 
 

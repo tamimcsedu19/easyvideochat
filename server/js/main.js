@@ -1,4 +1,4 @@
-var isInitiator = false;
+var isInitiator = 0;
 username = ""
 inCallUserUsername = ""
 while(true)
@@ -49,7 +49,10 @@ socket.on('gotIceCandidate',function(message){
       candidate: message.candidate
     });
     if(isInitiated)
+    {
+    	console.log("adding ice candidate");
     	pc.addIceCandidate(candidate);
+    }
 });
 
 
@@ -58,7 +61,7 @@ socket.on('gotSdp',function(message)
 	if(!isInitiator)
 	{
 		console.log("YAY SDP");
-		initAnswer(message.name,message);
+		initAnswer(message.replyTo,message);
 	}
 	else
 	{
@@ -71,7 +74,7 @@ socket.on('gotSdp',function(message)
 
 
 
-function call(username)
+function call(Calleeusername)
 {
 
 	isInitiator = true;
@@ -80,7 +83,8 @@ function call(username)
   			console.log('handleIceCandidate event: ', event);
   			if (event.candidate) {
     		socket.emit('sendIceCandidate',{
-    			name: username,
+    			name: Calleeusername,
+    			replyTo : username,
       			type: 'candidate',
       			label: event.candidate.sdpMLineIndex,
       			id: event.candidate.sdpMid,
@@ -137,7 +141,8 @@ function call(username)
   				console.log('setLocalAndSendMessage sending message' , sessionDescription);
   				
   				message = {
-  					'name':username,
+  					'name': Calleeusername,
+  					'replyTo': username,
   					'sdp' :sessionDescription
 
 
@@ -164,16 +169,17 @@ function call(username)
 
 
 
-function initAnswer(username,message)
+function initAnswer(Callerusername,message)
 {
 
 
+	console.log('Creating answer for '+Callerusername);
 
 	function handleIceCandidate(event) {
   			console.log('handleIceCandidate event: ', event);
   			if (event.candidate) {
     		socket.emit('sendIceCandidate',{
-    			name: username,
+    			name: Callerusername,
       			type: 'candidate',
       			label: event.candidate.sdpMLineIndex,
       			id: event.candidate.sdpMid,
@@ -205,7 +211,7 @@ function initAnswer(username,message)
 	pc.onicecandidate = handleIceCandidate;
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onremovestream = handleRemoteStreamRemoved;
-
+    pc.setRemoteDescription(new RTCSessionDescription(message.sdp));
 
 	
 	function handleUserMediaError(error)
@@ -218,6 +224,8 @@ function initAnswer(username,message)
 		localVideo.src = window.URL.createObjectURL(stream);
 		
 		pc.addStream(stream);
+		console.log('sending answer to'+Callerusername);
+		pc.createAnswer(sendSdp);
 
 	}
 	function sendSdp(sessionDescription) 
@@ -225,8 +233,9 @@ function initAnswer(username,message)
   				pc.setLocalDescription(sessionDescription);
   				console.log('setLocalAndSendMessage sending message' , sessionDescription);
   				
+  				console.log('sending sdp to '+ Callerusername);
   				message = {
-  					'name':username,
+  					'name':Callerusername,
   					'sdp' :sessionDescription
 
 
@@ -238,11 +247,8 @@ function initAnswer(username,message)
 
 
 	getUserMedia(constraints, handleUserMedia, handleUserMediaError);
-
-
-	pc.setRemoteDescription(new RTCSessionDescription(message.sdp));
    
-   	pc.createAnswer(sendSdp);
+   
 
    	isInitiated = 1;
 
