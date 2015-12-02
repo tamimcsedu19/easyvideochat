@@ -18,8 +18,8 @@ function makeOnline(username,socket)
 		socket_to_user_Map[socket.id] = username;
 		console.log("making online "+user_to_Socket_Map[username]);
 		userInCall_Map[username] = 0;
-	
-	
+
+
     /** To be done by rakib **/
     /*
         This function makes the user with the username online
@@ -35,11 +35,11 @@ function makeOnline(username,socket)
 function makeOffline(socket)
 {
 	var curUsername;
-	
+
 		user_to_Socket_Map[username] = 0;
 		curUsername = socket_to_user_Map[socket.id];
 		socket_to_user_Map[socket.id] = 0;
-		userInCall[username] = 0;
+		userInCall[curUsername] = 0;
 	return curUsername;
     /** To be done by rakib **/
     /*
@@ -101,9 +101,9 @@ function getSocket(username)
 
 function getUsername(socket)
 {
-	
+
 		return socket_to_user_Map[socket.id];
-	
+
         /** To be done by rakib **/
     /** Returns the username corresponding to the current socket **/
 
@@ -115,7 +115,7 @@ function setUserInCall(username){
 
 function removeUserInCall(username){
 
-		userInCall_Map[username] = 0;	
+		userInCall_Map[username] = 0;
 }
 
 function isUserInCall(username){
@@ -142,9 +142,9 @@ io.sockets.on('connection', function (socket)
         makeOnline(username,socket);
 
         calleeSocket = getSocket(username);
-        
-        
-        
+
+
+
         if(calleeSocket)
         	console.log('YAY it works');
 
@@ -152,17 +152,17 @@ io.sockets.on('connection', function (socket)
         var friends = getFriends(username);
         var online = [];
 
-        for (var i = 0; i < friends.length; i++) { 
+        for (var i = 0; i < friends.length; i++) {
 
     		var friendSocket = getSocket(friends[i]);
-    		
+
     		if(isOnline(friends[i]))
 			{
 				online.push('1');
 				friendSocket.emit('friendOnline',username);
 			}
 			else{
-				online.push('0');	
+				online.push('0');
 			}
 		}
 
@@ -219,10 +219,10 @@ io.sockets.on('connection', function (socket)
       disconnectedUser = makeOffline(socket);
       friends = getFriends(disconnectedUser);
 
-      for (var i = 0; i < friends.length; i++) { 
+      for (var i = 0; i < friends.length; i++) {
 
     		var friendSocket = getSocket(friends[i]);
-    		
+
     		if(isOnline(friends[i]))
 			{
 				friendSocket.emit('friendOffline',username);
