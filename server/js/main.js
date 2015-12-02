@@ -8,6 +8,7 @@ while(true)
         break;
 
 }
+var remoteSdpAdded = 0;
 
 var socket = io.connect(); //Connecting to the server with a socket
 
@@ -41,18 +42,25 @@ var isInitiated = 0;
 var pc;
 var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
+
+iceCandidates = []
 socket.on('gotIceCandidate',function(message){
 
 
 	var candidate = new RTCIceCandidate({
-      sdpMLineIndex: message.label,
-      candidate: message.candidate
+      'sdpMLineIndex': message.label,
+      'candidate': message.candidate,
+      'sdpMid' : message.id
     });
-    if(isInitiated)
-    {
-    	console.log("adding ice candidate");
-    	pc.addIceCandidate(candidate);
-    }
+  if(remoteSdpAdded)
+    pc.addIceCandidate(candidate);
+  else
+    iceCandidates.push(candidate);
+    // if(isInitiated)
+    // {
+    // 	console.log("adding ice candidate");
+    // 	pc.addIceCandidate(candidate);
+    // }
 });
 
 
@@ -66,9 +74,14 @@ socket.on('gotSdp',function(message)
 	else
 	{
 		console.log("YAY answerSDP");
+
 		pc.setRemoteDescription(new RTCSessionDescription(message.sdp));
+    remoteSdpAdded = 1;
+    for(var i=0;i<iceCandidates.length;++i)
+      pc.addIceCandidate(iceCandidates[i]);
 
 	}
+
 });
 
 
@@ -83,13 +96,13 @@ function call(Calleeusername)
   			console.log('handleIceCandidate event: ', event);
   			if (event.candidate) {
     		socket.emit('sendIceCandidate',{
-    			name: Calleeusername,
-    			replyTo : username,
-      			type: 'candidate',
-      			label: event.candidate.sdpMLineIndex,
-      			id: event.candidate.sdpMid,
-      			candidate: event.candidate.candidate});
-  			
+    			'name': Calleeusername,
+    			'replyTo' : username,
+      			'type': 'candidate',
+      			'label': event.candidate.sdpMLineIndex,
+      			'id': event.candidate.sdpMid,
+      			'candidate': event.candidate.candidate});
+
 
   			}
   			else {
@@ -101,20 +114,24 @@ function call(Calleeusername)
   		remoteVideo.src = window.URL.createObjectURL(event.stream);
   		remoteStream = event.stream;
 	}
+  function handleRemoteStreamRemoved(event)
+  {
+    console.log('Remote stream remove error');
+
+  }
 
 
 
 
-	
 	var pc_config = {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
 	var constraints = {video: true,audio:true};
 	pc = new RTCPeerConnection(pc_config);
 	pc.onicecandidate = handleIceCandidate;
     pc.onaddstream = handleRemoteStreamAdded;
-    //pc.onremovestream = handleRemoteStreamRemoved;
+    pc.onremovestream = handleRemoteStreamRemoved;
 
 
-	
+
 	function handleUserMediaError(error)
 	{
   		console.log('getUserMedia error: ', error);
@@ -129,27 +146,27 @@ function call(Calleeusername)
 	{
 		console.log('adding local source');
 		localVideo.src = window.URL.createObjectURL(stream);
-		
+
 		pc.addStream(stream);
 		pc.createOffer(sendSdp, handleSdpError);
 
 	}
 
-	function sendSdp(sessionDescription) 
+	function sendSdp(sessionDescription)
 	{
   				pc.setLocalDescription(sessionDescription);
   				console.log('setLocalAndSendMessage sending message' , sessionDescription);
-  				
+
   				message = {
   					'name': Calleeusername,
   					'replyTo': username,
-  					'sdp' :sessionDescription
+  					'sdp' : sessionDescription
 
 
   				}
 
   				socket.emit('sendSdp', message);
-  				
+
 	}
 
 	function handleCreateOfferError(event){
@@ -184,7 +201,7 @@ function initAnswer(Callerusername,message)
       			label: event.candidate.sdpMLineIndex,
       			id: event.candidate.sdpMid,
       			candidate: event.candidate.candidate});
-  			
+
 
   			}
   			else {
@@ -204,7 +221,7 @@ function initAnswer(Callerusername,message)
 
 
 
-	
+
 	var pc_config = {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
 	var constraints = {video: true,audio:true};
 	pc = new RTCPeerConnection(pc_config);
@@ -212,8 +229,12 @@ function initAnswer(Callerusername,message)
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onremovestream = handleRemoteStreamRemoved;
     pc.setRemoteDescription(new RTCSessionDescription(message.sdp));
+    remoteSdpAdded = 1;
+    for(var i=0;i<iceCandidates.length;++i)
+      pc.addIceCandidate(iceCandidates[i]);
 
-	
+
+
 	function handleUserMediaError(error)
 	{
   		console.log('getUserMedia error: ', error);
@@ -222,17 +243,17 @@ function initAnswer(Callerusername,message)
 	function handleUserMedia(stream)
 	{
 		localVideo.src = window.URL.createObjectURL(stream);
-		
+
 		pc.addStream(stream);
 		console.log('sending answer to'+Callerusername);
 		pc.createAnswer(sendSdp);
 
 	}
-	function sendSdp(sessionDescription) 
+	function sendSdp(sessionDescription)
 	{
   				pc.setLocalDescription(sessionDescription);
   				console.log('setLocalAndSendMessage sending message' , sessionDescription);
-  				
+
   				console.log('sending sdp to '+ Callerusername);
   				message = {
   					'name':Callerusername,
@@ -242,13 +263,13 @@ function initAnswer(Callerusername,message)
   				}
 
   				socket.emit('sendSdp', message);
-  				
+
 	}
 
 
 	getUserMedia(constraints, handleUserMedia, handleUserMediaError);
-   
-   
+
+
 
    	isInitiated = 1;
 
