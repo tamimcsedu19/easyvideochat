@@ -38,7 +38,7 @@ function makeOffline(socket)
     curUsername = socket_to_user_Map[socket.id];
 	socket_to_user_Map[socket.id] = 0;
     user_to_Socket_Map[curUsername] = 0;
-	userInCall[curUsername] = 0;
+	userInCall_Map[curUsername] = 0;
     return curUsername;
     /** To be done by rakib **/
     /*
