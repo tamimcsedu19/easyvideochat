@@ -35,12 +35,11 @@ function makeOnline(username,socket)
 function makeOffline(socket)
 {
 	var curUsername;
-
-		user_to_Socket_Map[username] = 0;
-		curUsername = socket_to_user_Map[socket.id];
-		socket_to_user_Map[socket.id] = 0;
-		userInCall[curUsername] = 0;
-	return curUsername;
+    curUsername = socket_to_user_Map[socket.id];
+	socket_to_user_Map[socket.id] = 0;
+    user_to_Socket_Map[curUsername] = 0;
+	userInCall[curUsername] = 0;
+    return curUsername;
     /** To be done by rakib **/
     /*
         This function makes the user with the socket offline
