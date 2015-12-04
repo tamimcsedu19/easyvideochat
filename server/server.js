@@ -208,7 +208,17 @@ io.sockets.on('connection', function (socket)
 
     });
 
+	
+	socket.on('sendMsg',function(message){
 
+    	calleeSocket = getSocket(message.receiver);
+
+    	console.log('sending MSG to '+message.receiver);
+
+    	calleeSocket.emit('gotMsg',message);
+
+
+    });
 
 
     socket.on('disconnect', function() {

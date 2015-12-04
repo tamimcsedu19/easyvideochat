@@ -40,9 +40,14 @@ socket.on('gotUserFriends',function (friends){
 
 var isInitiated = 0;
 var pc;
+var connectionEstablished = 0;
 var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
+var sendButton = document.getElementById("sendButton");
 
+sendButton.disabled = true;
+sendButton.onclick = sendData;
+var msgReceiver;
 iceCandidates = []
 socket.on('gotIceCandidate',function(message){
 
@@ -79,19 +84,23 @@ socket.on('gotSdp',function(message)
     remoteSdpAdded = 1;
     for(var i=0;i<iceCandidates.length;++i)
       pc.addIceCandidate(iceCandidates[i]);
-
+	sendButton.disabled = false;
 	}
 
 });
 
+socket.on('gotMsg',function(message)
+{
+	document.getElementById("dataChannelReceive").value = message.msg;
 
+});
 
 
 function call(Calleeusername)
 {
 
 	isInitiator = true;
-
+	msgReceiver = Calleeusername;
 	function handleIceCandidate(event) {
   			console.log('handleIceCandidate event: ', event);
   			if (event.candidate) {
@@ -189,7 +198,7 @@ function call(Calleeusername)
 function initAnswer(Callerusername,message)
 {
 
-
+	msgReceiver = Callerusername;
 	console.log('Creating answer for '+Callerusername);
 
 	function handleIceCandidate(event) {
@@ -233,7 +242,7 @@ function initAnswer(Callerusername,message)
     for(var i=0;i<iceCandidates.length;++i)
       pc.addIceCandidate(iceCandidates[i]);
 
-
+	
 
 	function handleUserMediaError(error)
 	{
@@ -247,7 +256,8 @@ function initAnswer(Callerusername,message)
 		pc.addStream(stream);
 		console.log('sending answer to'+Callerusername);
 		pc.createAnswer(sendSdp);
-
+		sendButton.disabled = false;
+		
 	}
 	function sendSdp(sessionDescription)
 	{
@@ -283,7 +293,16 @@ function initAnswer(Callerusername,message)
 
 }
 
+function sendData() {
+  var data = document.getElementById("dataChannelSend").value;
+  textMsg = {
+  					'receiver': msgReceiver,
+  					'msg' : data
 
+
+  			}
+  socket.emit('sendMsg', textMsg);
+}
 
 
 function displayUserFriends(friends)
