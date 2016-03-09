@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>BOOTSTRAP CHAT EXAMPLE</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" href="./codebase/webix.css" type="text/css" charset="utf-8">
+	<script src="./codebase/webix.js" type="text/javascript" charset="utf-8"></script>
+	
+	<link rel="stylesheet" type="text/css" href="common/samples.css">
+	<script src="common/testdata.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body style="font-family:Verdana">
+  <div class="container">
+<div class="row " style="padding-top:40px;">
+    <h3 class="text-center" >BOOTSTRAP CHAT EXAMPLE </h3>
+    <br /><br />
+    <div class="col-md-8">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                RECENT CHAT HISTORY
+            </div>
+            <div class="panel-body">
+<ul class="media-list">
+
+                                    <li class="media">
+
+                                        <div class="media-body">
+
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-circle " src="assets/img/user.png" />
+                                                </a>
+                                                <div class="media-body" >
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+              
+              Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim. 
+                                                    Duis vel condimentum massa.
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+                                                    <br />
+                                                   <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                                    <hr />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+     <li class="media">
+
+                                        <div class="media-body">
+
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-circle " src="assets/img/user.gif" />
+                                                </a>
+                                                <div class="media-body" >
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+              
+              Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim. 
+                                                    Duis vel condimentum massa.
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+                                                    <br />
+                                                   <small class="text-muted">Jhon Rexa | 23rd June at 5:00pm</small>
+                                                    <hr />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+     <li class="media">
+
+                                        <div class="media-body">
+
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-circle " src="assets/img/user.png" />
+                                                </a>
+                                                <div class="media-body" >
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+              
+              Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim. 
+                                                    Duis vel condimentum massa.
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+                                                    <br />
+                                                   <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                                    <hr />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+     <li class="media">
+
+                                        <div class="media-body">
+
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-circle " src="assets/img/user.gif" />
+                                                </a>
+                                                <div class="media-body" >
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+              
+              Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim. 
+                                                    Duis vel condimentum massa.
+                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
+                                                    <br />
+                                                   <small class="text-muted">Jhon Rexa | 23rd June at 5:00pm</small>
+                                                    <hr />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                </ul>
+            </div>
+            <div class="panel-footer">
+                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter Message" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button">SEND</button>
+                                    </span>
+                                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <object align="right">
+		<div class='header_comment'>Cell selection </div>
+		<div class='sample_comment'>Click on any cell to select it. </div>
+		<div id="testA"></div>
+		<hr>
+		<div id="testB" class='sample_comment'></div>
+		<script type="text/javascript" charset="utf-8">
+		webix.ready(function(){
+			grid = webix.ui({
+				container:"testA",
+				view:"datatable",
+				columns:[
+					{ id:"id",	header:"", css:"rank",  		width:50},
+					{ id:"title",	header:"Username",width:200},
+					{ id:"isOnline",	header:"" , width:80}
+				],
+				select:"cell",
+				autoheight:true,
+				autowidth:true,
+
+				on:{
+					onSelectChange:function(){
+						var text = "Selected: "+grid.getSelectedId(true).join();
+						document.getElementById('testB').innerHTML = text;
+					}
+				},
+
+				data:small_film_set
+			});		
+		});
+		</script>
+		</object>
+        
+    </div>
+</div>
+  </div>
+</body>
+</html>

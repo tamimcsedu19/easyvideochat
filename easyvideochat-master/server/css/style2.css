@@ -1,0 +1,127 @@
+.round-button {
+	width:30%;
+}
+.round-button-circle {
+	width: 100%;
+	height:0;
+	padding-bottom: 100%;
+    border-radius: 50%;
+	border:10px solid #cfdcec;
+    overflow:hidden;
+    
+    background: #4679BD; 
+    box-shadow: 0 0 3px gray;
+}
+.round-button-circle:hover {
+	background:#30588e;
+}
+.round-button a {
+    display:block;
+	float:left;
+	width:100%;
+	padding-top:50%;
+    padding-bottom:50%;
+	line-height:1em;
+	margin-top:-0.5em;
+    
+	text-align:center;
+	color:#e2eaf3;
+    font-family:Verdana;
+    font-size:1.2em;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 36px 23px;
+    border: 16px solid #27a151;
+    border-radius: 54px;
+    background: #4aff4a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4aff4a), to(#269979));
+    background: -moz-linear-gradient(top, #4aff4a, #269979);
+    background: linear-gradient(to bottom, #4aff4a, #269979);
+    text-shadow: #591717 1px 1px 1px;
+    font: normal normal bold 20px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.button:hover,
+.button:focus {
+    border: 16px solid #33d169;
+    background: #59ff59;
+    background: -webkit-gradient(linear, left top, left bottom, from(#59ff59), to(#2eb891));
+    background: -moz-linear-gradient(top, #59ff59, #2eb891);
+    background: linear-gradient(to bottom, #59ff59, #2eb891);
+    color: #ffffff;
+    text-decoration: none;
+}
+.button:active {
+    background: #2c992c;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2c992c), to(#269979));
+    background: -moz-linear-gradient(top, #2c992c, #269979);
+    background: linear-gradient(to bottom, #2c992c, #269979);
+}
+.button:before{
+    content:  "\0000a0";
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    margin: 0 4px -6px -4px;
+    position: relative;
+    top: -3px;
+    left: 0px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABQUlEQVRIia3WsUoDQRSF4c8IIYJYiUgIUUTEykZBSCEWPoKVD2GZwjewsrayFrWytBALkRRiFVstBBvFItgIIRazSzYh2UQzB4ZluXD+nXvP7C6co41O33pBVQQNMk/X/qTmBfzk1OdiAD5y6ksxAG859Y0YgOeceg3FSQGNnPoClicBwJrhSboz4Q4Iu2gOML8RIUWpjvrMr1GKZQ5lfCfmnyI++XRybQmZ38QMXvEYC5KqkoA6+Eruo6uuO4dbERLUryLuM5BTIWVRVcV7BnIyAlLA4l8hNd15dHBmcGxLuBAOagPHOMAOtjCbB9nrgzxgJVMv4srwb0kHT+PsJNuuFg6FczLKPF0jVdU7+DTG45iPBSC0o663ZVEBqSpCdNPXSnRAqrLwgmzK/2loT/2XkKiAVexiG+vCzOaFtl7+Aut8jJNXJgrQAAAAAElFTkSuQmCC") no-repeat left center transparent;
+    background-size: 100% 100%;
+}
+
+
+
+.button2 {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 36px 23px;
+    border: 16px solid #2731a1;
+    border-radius: 54px;
+    background: #4a59ff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4a59ff), to(#262699));
+    background: -moz-linear-gradient(top, #4a59ff, #262699);
+    background: linear-gradient(to bottom, #4a59ff, #262699);
+    text-shadow: #591717 1px 1px 1px;
+    font: normal normal bold 20px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.button2:hover,
+.button2:focus {
+    border: 16px solid #3e4eff;
+    background: #596bff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#596bff), to(#2e2eb8));
+    background: -moz-linear-gradient(top, #596bff, #2e2eb8);
+    background: linear-gradient(to bottom, #596bff, #2e2eb8);
+    color: #ffffff;
+    text-decoration: none;
+}
+.button2:active {
+    background: #2c3599;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2c3599), to(#262699));
+    background: -moz-linear-gradient(top, #2c3599, #262699);
+    background: linear-gradient(to bottom, #2c3599, #262699);
+}
+.button2:before{
+    content:  "\0000a0";
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    margin: 0 4px -6px -4px;
+    position: relative;
+    top: -3px;
+    left: 0px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAE/0lEQVRIiZWWW2wUVRjH/+fMnNntdi9lu7vdXaCUcLHULaIhhUQEkTcSVF54MEri7cEHgi+aEIJKKI2PJj6IiNGo0UjiXQmCWpSAKZdqjOGy4INYlnZbt9Pd7u7MmXPxYdulixTSk5yH+b6Z8/vmu/xnCO6y9va+Em6Ntj4SCDRvtCxrgefxMdd1TxYniidefmnX0N2eJ7M5ent7EQw1LU2mUi8s7li8LRqNpv3+Jio8T9m2PXY9N3R64OyZffte2z94J4A5m8MwyYL29vb9K7tXPhqLxf2MWTBNEwBoPB5PpFLpxw1qxD748L2d2596elYIvZ2xr6+PdnR07M5kurdFIi3+2osSUEpBCAVA4fP5kMl0r0sk2vZ++fXn6TkBFMSCRCKxrTnQDCkltFZQSkIIASnF1LUCYwzxWGx9tVLumROAMdbTGo1GlZJQSkJKASEEOOfgnEMID1LWfIFAICyEenA2wG1rYFAkGTPheR601gAIDEOB0lo8Sqk6lFICSo3knABCqILrurAsX92mlAIhtabTWkFKCSklXJcDBIU5ATwhztm2zYPBoOV5tRpQaswA6KkUKZQmS5y7zsBsgNvWYM/uV7Pnzg8erlQqUEqBcw7XdRq2EB5cx8HIyMjR/NjoiTkBnnv+mdVtbW1d13M5VCpVEELqUUspAQBCCOSGb6hypWJajIVnAxi3Gg4eOtCzYcOGN7pW3NvDOUfuRg5SSjDGQCmFkBKFQgG5G8NIpeaTzuX3LKxWK52ZTOc3/f2/uLee1yAVB985kMlkut9dvmx5j5QSnufBcRzkR/MoT5ahtYJhGAiHI0ilUmhubgYhgJQSP/Uf/zg39PeOnS/uaih4Q5Hj8dZn56fTq7XWME0TPp8P4XAYyWSqFg0BCKEgZEaregJ2ycW8xJLN2Wv2qSd37D/00Zu7+f9S1Pf6nkQms+rtZCLZrKFBKYFhUFBKYZoGGDNhmiYopdBaQWsFu1TFZ/2X8NXJv3D2iu2/lJPdl/M65mtff7Z49Ue3AbB585Yta3rWbKeUgHMPhmGAUjKlPbXW1FpDKQmtNYplB3sPncKvl8bxjy2wYkkKixYmIlzQdZTo+5oWrT9duHzcrneR3+9LMsbgOA7K5UkQMt3vakouapIhpYSSEt+dvILssIOSq1Asu2gJWqhUOYZtB6FIy8MtoeATnZv2+esA27YFNDAxUWxoS6UEpKxNrhA1/SkUyzifzcNTBK4nEQ4wPLAsgWLZBfcEyq4INPmsjaZlJOqAI0eOXvi3UBBSSvh81pRy3ox8WkmVlJgoVVGqcHDugXMPne1R3L8sAa01hBTwPAGudMxhZmAaQAcHf7s2cGbgQigcgmEYMw6/KdNCCHhCoMmisEwAWkFLiaXpCEoVjly+CC0VdE2Bx5SSlTqgWqmKw58e/iR7OTvEGIPf74dl1b5ijDGYplnfsXkhrOlKQwgBy6ToWtyKYtlFfnwS0AoG4LiO/llqmp+eAwHAPn7shxPZ7JXc1q2PbVq7du2qYDAYsJgFzJAUrTUIAdJNHiIY90/oUOzUH0PWqF2G43rwmYRPjOW+LVwcfH/06hfOzEmmAKIAggCsWDwWjMdjfsuyGhVX69rNFHScB9Ny3sqHfKH4KmL6wkSLolue+H3kz+/fckYvXgAgbv2roGgUQIU7L4sF28JWZH6SNUWikpdtZ3wo55Vyhams4D8CN73ImsA90QAAAABJRU5ErkJggg==") no-repeat left center transparent;
+    background-size: 100% 100%;
+}
